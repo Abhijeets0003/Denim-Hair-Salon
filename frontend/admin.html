@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Denim Hair Admin Panel</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* APPROVE BUTTON */
+
+.approve-btn{
+
+    background:green;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 12px;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    margin-right:5px;
+
+    font-weight:bold;
+
+}
+
+/* REJECT BUTTON */
+
+.reject-btn{
+
+    background:red;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 12px;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    margin-right:5px;
+
+    font-weight:bold;
+
+}
+
+/* DELETE BUTTON */
+
+.delete-btn{
+
+    background:black;
+
+    color:white;
+
+    border:none;
+
+    padding:8px 12px;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#050505;
+    color:white;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    width:270px;
+    height:100vh;
+    background:#0d0d0d;
+    padding:40px 25px;
+    border-right:1px solid rgba(212,175,55,0.15);
+}
+
+.logo{
+    color:#d4af37;
+    font-size:36px;
+    font-weight:700;
+    margin-bottom:60px;
+}
+
+.logo span{
+    color:white;
+    font-weight:300;
+}
+
+.menu{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.menu a{
+    text-decoration:none;
+    color:#bbb;
+    padding:16px 20px;
+    border-radius:14px;
+    transition:0.4s;
+}
+
+.menu a:hover{
+    background:#d4af37;
+    color:black;
+}
+
+/* MAIN */
+
+.main{
+    margin-left:270px;
+    padding:40px;
+}
+
+/* TOPBAR */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:40px;
+}
+
+.topbar h1{
+    font-size:42px;
+}
+
+.topbar span{
+    color:#d4af37;
+}
+
+/* CARDS */
+
+.dashboard-cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+    margin-bottom:50px;
+}
+
+.card{
+    background:#111;
+    padding:35px;
+    border-radius:25px;
+    border:1px solid rgba(212,175,55,0.12);
+    transition:0.4s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    border-color:#d4af37;
+}
+
+.card h2{
+    color:#d4af37;
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#bbb;
+}
+
+/* TABLE */
+
+.table-section{
+    background:#111;
+    padding:30px;
+    border-radius:25px;
+    overflow-x:auto;
+}
+
+.table-title{
+    margin-bottom:25px;
+}
+
+.table-title h2{
+    color:#d4af37;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table th{
+    background:#d4af37;
+    color:black;
+    padding:18px;
+    text-align:left;
+}
+
+table td{
+    padding:18px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    color:#ccc;
+}
+
+.delete-btn{
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    background:red;
+    color:white;
+    cursor:pointer;
+}
+/* SEARCH BOX */
+
+.search-box{
+
+    margin:20px 0;
+
+}
+
+.search-box input{
+
+    width:300px;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    border:none;
+
+    outline:none;
+
+    background:#f1f1f1;
+
+    font-size:16px;
+
+}
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="logo">
+        DENIM <span>HAIR</span>
+    </div>
+
+    <div class="menu">
+
+        <a href="#">Dashboard</a>
+
+        <a href="#">Appointments</a>
+
+        <a href="#">Customers</a>
+
+        <a href="#">Services</a>
+
+        <a href="#">Gallery</a>
+
+        <a href="#">Logout</a>
+
+    </div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <h1>
+            Admin <span>Dashboard</span>
+        </h1>
+
+    </div>
+
+    <!-- CARDS -->
+
+   <div class="dashboard-cards">
+
+    <div class="card">
+
+        <h2 id="totalCustomers">0</h2>
+
+        <p>Total Customers</p>
+
+    </div>
+
+    <div class="card">
+
+        <h2 id="totalBookings">0</h2>
+
+        <p>Appointments</p>
+
+    </div>
+
+    <div class="card">
+
+        <h2 id="totalServices">4</h2>
+
+        <p>Services</p>
+
+    </div>
+
+    <div class="card">
+
+        <h2>₹25K</h2>
+
+        <p>Monthly Revenue</p>
+
+    </div>
+
+</div>
+
+
+<div class="search-box">
+
+    <input
+
+    type="text"
+
+    id="searchInput"
+
+    placeholder="Search Customer..."
+
+    onkeyup="searchBookings()">
+
+</div>
+    <!-- TABLE -->
+
+    <div class="table-section">
+
+        <div class="table-title">
+
+            <h2>Recent Bookings</h2>
+
+        </div>
+
+        <table>
+
+            <thead>
+
+               <tr>
+
+    <th>Name</th>
+
+    <th>Email</th>
+
+    <th>Service</th>
+
+    <th>Date</th>
+
+    <th>Time</th>
+
+    <th>Status</th>
+
+    <th>Action</th>
+
+</tr>
+
+            </thead>
+
+           <tbody id="bookingData">
+
+</tbody>
+</div>
+<script src="admin.js"></script>
+
+</body>
+
+</html>
